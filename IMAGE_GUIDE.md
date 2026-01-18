@@ -20,15 +20,21 @@ public/images/
 
 ## 🎨 Where Images Are Used
 
-### 1. Hero Section Background (Top of Page)
+### 1. Hero Carousel (Top of Page)
 
-**File:** `src/app/page.tsx` (line ~23)
+**Files:**
+- `src/app/page.tsx` (line 24) - Passes data to carousel
+- `src/components/home/HeroCarousel.tsx` - Carousel component
 
-The hero section shows a grid of 6 images from your featured portfolio in the background.
+The hero section shows a rotating carousel of your featured portfolio images with static text overlay.
 
-**How it works:** It automatically displays the first 6 "featured" portfolio items.
+**How it works:**
+- Automatically displays all "featured" portfolio items in rotation
+- Images change every 4 seconds
+- Text (business name, tagline, buttons) stays static while images rotate
+- Navigation arrows and dots allow manual control
 
-**To change:** Update the portfolio items in `src/data/portfolio.ts` (see section 2 below)
+**To change images:** Update the portfolio items in `src/data/portfolio.ts` (see section 2 below) and set `featured: true`
 
 ---
 
@@ -171,22 +177,30 @@ Currently, 3 portfolio items still use placeholder images:
 
 ---
 
-## 🎯 Hero Section Visibility
+## 🎯 Hero Carousel Settings
 
-The hero section (top of page) shows 6 portfolio images in the background.
+The hero section (top of page) shows a rotating carousel of featured portfolio images.
 
 **Current settings:**
-- Image grid opacity: 50% (so they're visible but subtle)
-- Blue overlay opacity: 70% (so text is readable)
+- Autoplay: Every 4 seconds
+- Dark gradient overlay: `from-black/60 via-black/20 to-transparent` (for text readability)
+- Transition duration: 20ms (smooth slide)
 
-**To make images MORE visible:**
-Edit `src/app/page.tsx` around line 23:
+**To change carousel behavior:**
+Edit `src/components/home/HeroCarousel.tsx` line 18-20:
 ```typescript
-// Change opacity-50 to opacity-60 or opacity-70 for brighter images
-<div className="absolute inset-0 grid grid-cols-3 gap-1 opacity-50">
+const [emblaRef, emblaApi] = useEmblaCarousel(
+  { loop: true, duration: 20 },  // ← duration = slide speed
+  [Autoplay({ delay: 4000, stopOnInteraction: false })]  // ← delay = time between slides
+);
+```
 
-// Change /70 to /60 or /50 for lighter overlay
-<div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-blue-700/70" />
+**To adjust text overlay visibility:**
+Edit `src/components/home/HeroCarousel.tsx` line 66:
+```typescript
+// Change from-black/60 to from-black/70 for darker gradient (more text contrast)
+// Change to-transparent to to-black/10 for overall darker overlay
+<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 ```
 
 ---
