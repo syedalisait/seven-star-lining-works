@@ -1,0 +1,8 @@
+# robots.txt for Seven Star Lining Works
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://sevenstarliningworks.com/sitemap.xml
