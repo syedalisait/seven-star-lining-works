@@ -37,8 +37,9 @@ export function ContactForm() {
 
       if (response.ok && result.success) {
         toast({
-          title: 'Message sent!',
+          title: '✓ Message sent!',
           description: 'Thank you for contacting us. We will get back to you soon.',
+          className: 'bg-green-600 text-white border-green-700',
         });
         reset();
       } else {
@@ -109,7 +110,12 @@ export function ContactForm() {
         )}
       </div>
 
-      <Button type="submit" disabled={isSubmitting} className="w-full h-12" size="lg">
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full h-12 text-base font-semibold shadow-md hover:shadow-lg border-2 border-blue-700"
+        size="lg"
+      >
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
