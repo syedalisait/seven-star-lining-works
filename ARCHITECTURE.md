@@ -332,25 +332,7 @@ const onSubmit = async (data: ContactFormData) => {
 
 ## Development Workflow
 
-### Running the App
-
-```bash
-# Install dependencies
-npm install
-
-# Run dev server (hot reload enabled)
-npm run dev
-# → http://localhost:3000
-
-# Build for production
-npm run build
-
-# Run production build
-npm start
-
-# Type checking (like running tsc)
-npm run type-check
-```
+For complete setup and deployment instructions, see [SETUP.md](./SETUP.md).
 
 ### Making Changes
 
@@ -431,20 +413,7 @@ Run `npm run type-check` to see TypeScript errors without running the app.
 
 ## Environment Variables
 
-Create `.env.local` in root (gitignored by default):
-
-```bash
-# Email service (Resend)
-RESEND_API_KEY=re_xxx
-
-# Where contact form emails go
-CONTACT_EMAIL=info@sevenstarliningworks.com
-
-# Google Analytics (if needed)
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
-```
-
-**Note:** Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Others are server-only.
+For environment variable setup and configuration, see [SETUP.md](./SETUP.md).
 
 ## Important Security Notes
 
@@ -453,27 +422,9 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 - Client components (`'use client'`) run in browser (don't put secrets here)
 - Rate limiting is already implemented in `src/lib/rate-limit.ts`
 
-## Build & Deploy
+## Deployment
 
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Build for production
-npm run build
-
-# 3. Test production build locally
-npm start
-
-# 4. Deploy to Vercel (recommended)
-# Push to GitHub → Connect to Vercel → Auto-deploys on push
-```
-
-**Deployment checklist:**
-- [ ] Set environment variables in hosting platform
-- [ ] Update `NEXT_PUBLIC_*` variables if needed
-- [ ] Test contact form with real email
-- [ ] Verify images load correctly
+For build and deployment instructions, see [SETUP.md](./SETUP.md).
 
 ## Need More Help?
 

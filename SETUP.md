@@ -18,26 +18,54 @@ pnpm install
 
 ### 2. Configure Environment Variables
 
-The `.env` file has been created for you. You need to add your Resend API key:
+Create a `.env.local` file in the project root (gitignored by default):
 
+```bash
+# Email service (Resend)
+RESEND_API_KEY=re_your_actual_api_key_here
+
+# Where contact form emails go
+CONTACT_EMAIL=info@sevenstarliningworks.com
+
+# Site URL (for development)
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Google Analytics (optional - if needed)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+**Getting Your Resend API Key:**
 1. Go to [Resend](https://resend.com/) and sign up for a free account
 2. Navigate to [API Keys](https://resend.com/api-keys)
 3. Create a new API key
-4. Copy the API key and paste it in the `.env` file:
+4. Copy the API key and paste it in `.env.local`
 
-```env
-RESEND_API_KEY=re_your_actual_api_key_here
-CONTACT_EMAIL=info@sevenstarliningworks.com
-NEXT_PUBLIC_SITE_URL=http://localhost:3001
-```
+**Important Notes:**
+- Never commit `.env.local` to git (already in `.gitignore`)
+- Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser
+- Other variables are server-only and secure
 
-### 3. Start the Development Server
+### 3. Development Commands
 
 ```bash
+# Start dev server (hot reload enabled)
 pnpm dev
+# → http://localhost:3000
+
+# Build for production
+pnpm build
+
+# Run production build locally
+pnpm start
+
+# Type checking (TypeScript compiler)
+pnpm type-check
+
+# Linting
+pnpm lint
 ```
 
-The site will be available at `http://localhost:3000` (or `http://localhost:3001` if 3000 is in use).
+The development site will be available at `http://localhost:3000` (or the next available port if 3000 is in use).
 
 ### 4. Test the Contact Form
 
@@ -60,12 +88,18 @@ The site will be available at `http://localhost:3000` (or `http://localhost:3001
 
 ### 5. Build and Test Production Build
 
+Before deploying, test the production build locally:
+
 ```bash
+# 1. Build for production
 pnpm build
+
+# 2. Test production build locally
 pnpm start
+# → Production server runs on http://localhost:3000
 ```
 
-This will create an optimized production build and start the production server.
+This creates an optimized production build and tests it locally.
 
 ## Testing Checklist
 
@@ -99,8 +133,17 @@ git push origin main
 4. Configure environment variables in Vercel:
    - `RESEND_API_KEY`: Your Resend API key
    - `CONTACT_EMAIL`: Your business email
-   - `NEXT_PUBLIC_SITE_URL`: Your production URL (e.g., https://sevenstarliningworks.com)
+   - `NEXT_PUBLIC_SITE_URL`: Your production URL (e.g., https://sevenstarliningworks.vercel.app)
 5. Click "Deploy"
+
+**Deployment Checklist:**
+- [ ] Set all environment variables in hosting platform
+- [ ] Update `NEXT_PUBLIC_SITE_URL` to production URL
+- [ ] Test contact form with real email after deployment
+- [ ] Verify all images load correctly
+- [ ] Test on mobile, tablet, and desktop devices
+- [ ] Check all navigation links work
+- [ ] Verify WhatsApp integration works
 
 ### 3. Configure Custom Domain (Optional)
 
