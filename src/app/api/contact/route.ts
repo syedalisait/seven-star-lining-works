@@ -1,14 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { contactFormSchema } from '@/lib/validations';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { businessInfo } from '@/data/business-info';
+import { env } from '@/lib/env';
 
-const resendApiKey = process.env.RESEND_API_KEY || '';
+const resendApiKey = env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Rate Limiting Check
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const rateLimitResult = checkRateLimit(ip, {
+      limit: 3, // 3 requests
+      windowMs: 60 * 60 * 1000, // per hour
+    });
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Too many requests. Please try again later.',
+        },
+        { status: 429 }
+      );
+    }
 
     // Validate input
     const validatedData = contactFormSchema.parse(body);
@@ -25,7 +44,7 @@ export async function POST(request: NextRequest) {
     // Send email via Resend
     const { data, error } = await resend.emails.send({
       from: 'Seven Star Lining Works <onboarding@resend.dev>', // Will be replaced with custom domain
-      to: process.env.CONTACT_EMAIL || 'info@sevenstarliningworks.com',
+      to: env.CONTACT_EMAIL,
       subject: `New Contact Form Submission from ${validatedData.name}`,
       html: generateEmailTemplate(validatedData),
     });
@@ -176,9 +195,8 @@ function generateEmailTemplate(data: {
               </span>
             </div>
 
-            ${
-              data.email
-                ? `
+            ${data.email
+      ? `
             <div class="field">
               <span class="label">Email Address</span>
               <span class="value">
@@ -188,19 +206,18 @@ function generateEmailTemplate(data: {
               </span>
             </div>
             `
-                : ''
-            }
+      : ''
+    }
 
-            ${
-              data.service
-                ? `
+            ${data.service
+      ? `
             <div class="field">
               <span class="label">Service Interested In</span>
               <span class="value">${data.service}</span>
             </div>
             `
-                : ''
-            }
+      : ''
+    }
 
             <div class="field">
               <span class="label">Message</span>
@@ -227,10 +244,10 @@ function generateEmailTemplate(data: {
               </p>
               <p style="margin: 5px 0;">
                 🕐 Received: ${new Date().toLocaleString('en-IN', {
-                  timeZone: 'Asia/Kolkata',
-                  dateStyle: 'full',
-                  timeStyle: 'short',
-                })}
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })}
               </p>
             </div>
           </div>
