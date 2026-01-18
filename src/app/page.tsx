@@ -10,7 +10,19 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Star, Phone, MapPin } from 'lucide-react';
+import { websiteCopy } from '@/data/website-copy';
+import { Metadata } from 'next';
 import Image from 'next/image';
+
+export const metadata: Metadata = {
+  title: 'Seven Star Lining Works | Premium Motorcycle Accessories in Chennai',
+  description: 'Specializing in custom seat covers, tank covers, and premium motorcycle accessories. Serving Chennai since 1993 with quality craftsmanship.',
+  openGraph: {
+    title: 'Seven Star Lining Works | Premium Motorcycle Accessories',
+    description: 'Custom seat covers, tank covers, and bike accessories in Chennai. 33+ years of excellence.',
+    images: ['/images/portfolio/re-brown-leather.jpg'],
+  },
+};
 
 export default function Home() {
   const featuredPortfolio = portfolioItems.filter((item) => item.featured);
@@ -27,9 +39,9 @@ export default function Home() {
         <section id="services" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{websiteCopy.services.title}</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Specializing in premium motorcycle accessories and customization
+                {websiteCopy.services.subtitle}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -65,9 +77,9 @@ export default function Home() {
         <section id="portfolio" className="py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Work</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">{websiteCopy.portfolio.title}</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Showcasing our quality craftsmanship and attention to detail
+                {websiteCopy.portfolio.subtitle}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -93,7 +105,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <Button variant="outline" size="lg" asChild>
-                <a href="/portfolio">View Full Portfolio</a>
+                <a href="/portfolio">{websiteCopy.portfolio.cta}</a>
               </Button>
             </div>
           </div>
@@ -103,7 +115,7 @@ export default function Home() {
         <section id="about" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">About Us</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">{websiteCopy.about.title}</h2>
               <p className="text-lg text-gray-700 mb-4">
                 With over {businessInfo.yearsInBusiness} years of experience in the motorcycle accessories industry,
                 Seven Star Lining Works has become Chennai&apos;s trusted name for quality seat covers,
@@ -141,10 +153,10 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                What Our Customers Say
+                {websiteCopy.testimonials.title}
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Read reviews from our satisfied customers
+                {websiteCopy.testimonials.subtitle}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -188,9 +200,9 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">{websiteCopy.contact.title}</h2>
                 <p className="text-gray-600">
-                  Visit us or give us a call to discuss your motorcycle customization needs
+                  {websiteCopy.contact.subtitle}
                 </p>
               </div>
               <div className="space-y-6">
@@ -256,7 +268,7 @@ export default function Home() {
                 </Card>
 
                 <Card className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
+                  <h3 className="text-xl font-semibold mb-4">{websiteCopy.contact.formTitle}</h3>
                   <ContactForm />
                 </Card>
               </div>
