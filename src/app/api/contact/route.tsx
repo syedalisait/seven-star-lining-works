@@ -4,7 +4,7 @@ import { contactFormSchema } from '@/lib/validations';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { businessInfo } from '@/data/business-info';
 import { env } from '@/lib/env';
-import { ContactEmail } from '@/components/email/ContactEmail';
+import { generateContactEmailHTML } from '@/components/email/ContactEmail';
 
 const resendApiKey = env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       from: 'Seven Star Lining Works <onboarding@resend.dev>', // Will be replaced with custom domain
       to: env.CONTACT_EMAIL,
       subject: `New Contact Form Submission from ${validatedData.name}`,
-      react: <ContactEmail {...validatedData} />,
+      html: generateContactEmailHTML(validatedData),
     });
 
     if (error) {
