@@ -26,6 +26,13 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
 
+    // Honeypot check - if the hidden "website" field is filled, it's likely a bot
+    if (data.website) {
+      // Silently fail for bots
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -95,6 +102,17 @@ export function ContactForm() {
         {errors.email && (
           <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
         )}
+      </div>
+
+      {/* Honeypot field - hidden from users, catches bots */}
+      <div className="hidden" aria-hidden="true">
+        <Input
+          {...register('website')}
+          placeholder="Website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <div>

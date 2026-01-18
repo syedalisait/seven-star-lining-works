@@ -5,6 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { WhatsAppButton } from '@/components/contact/WhatsAppButton';
 import { Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PortfolioItem } from '@/types';
 import { businessInfo } from '@/data/business-info';
@@ -101,12 +102,17 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
                       Serving Chennai since 1993 • {businessInfo.yearsInBusiness}+ Years of Excellence
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <Button size="lg" variant="secondary" asChild className="shadow-lg">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        asChild
+                        className="bg-white/95 text-blue-900 border-2 border-white hover:bg-white shadow-lg font-semibold"
+                      >
                         <a href="#portfolio">View Our Work</a>
                       </Button>
                       <Button
                         size="lg"
-                        className="bg-white text-blue-900 hover:bg-gray-100 shadow-lg"
+                        className="bg-blue-600 text-white hover:bg-blue-700 border-2 border-blue-600 shadow-lg font-semibold"
                         asChild
                       >
                         <a href={`tel:${businessInfo.contact.phone}`}>
@@ -114,6 +120,10 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
                           Call Now
                         </a>
                       </Button>
+                      <WhatsAppButton
+                        size="lg"
+                        className="bg-white border-2 border-green-600 shadow-lg hover:bg-green-50 font-semibold"
+                      />
                     </div>
                   </div>
                 </div>

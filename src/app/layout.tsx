@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
+import { FloatingWhatsApp } from '@/components/contact/FloatingWhatsApp';
 import { defaultMetadata, generateLocalBusinessSchema, generateWebsiteSchema } from '@/lib/metadata';
 import './globals.css';
 
@@ -42,6 +43,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <FloatingWhatsApp />
         <Toaster />
       </body>
     </html>
