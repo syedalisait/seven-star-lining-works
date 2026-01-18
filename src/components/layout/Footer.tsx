@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { businessInfo } from '@/data/business-info';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Clock } from 'lucide-react';
+// TODO: Add back Mail icon when email is set up
 
 export function Footer() {
   return (
@@ -29,6 +30,7 @@ export function Footer() {
                   {businessInfo.contact.phone}
                 </a>
               </div>
+              {/* TODO: Uncomment when business email is set up
               {businessInfo.contact.email && (
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-brand-secondary" />
@@ -40,6 +42,7 @@ export function Footer() {
                   </a>
                 </div>
               )}
+              */}
             </div>
           </div>
 

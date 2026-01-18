@@ -68,7 +68,8 @@ export function generateLocalBusinessSchema() {
     description: businessInfo.description,
     url: siteUrl,
     telephone: businessInfo.contact.phone,
-    email: businessInfo.contact.email,
+    // TODO: Uncomment when business email is set up
+    // email: businessInfo.contact.email,
     priceRange: '₹₹',
     image: `${siteUrl}/og-image.jpg`,
     logo: `${siteUrl}/logo.png`,
